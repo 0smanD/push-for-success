@@ -1,0 +1,33 @@
+name: Daily Motivation Bot
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Her gün sabah 08:00'de çalışır (UTC)
+  workflow_dispatch:  # Manuel çalıştırma için
+
+jobs:
+  update-motivation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu Klonla
+        uses: actions/checkout@v3
+
+      - name: Rastgele Motivasyon Sözü Ekle
+        run: |
+          MOTIVATION=(
+            "Başarı, tekrar tekrar denemekten gelir."
+            "Bugün harika bir gün olacak!"
+            "Kod yazmak, geleceği inşa etmektir."
+            "Her hata, öğrenmek için bir fırsattır."
+            "Kendine güven, başarının anahtarıdır."
+          )
+          RANDOM_QUOTE=${MOTIVATION[$RANDOM % ${#MOTIVATION[@]}]}
+          echo "$(date): $RANDOM_QUOTE" >> motivation.txt
+
+      - name: Değişiklikleri Commit ve Push Et
+        run: |
+          git config --global user.name "GitHub Action Bot"
+          git config --global user.email "github-actions@github.com"
+          git add motivation.txt
+          git commit -m "📢 Yeni Motivasyon Sözü: $(date)"
+          git push
