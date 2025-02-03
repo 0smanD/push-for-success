@@ -2,8 +2,8 @@ name: Daily Motivation Bot
 
 on:
   schedule:
-    - cron: '0 8 * * *'  # Her gün sabah 08:00'de çalışır (UTC)
-  workflow_dispatch:  # Manuel çalıştırma için
+    - cron: '0 8 * * *'
+  workflow_dispatch:
 
 jobs:
   update-motivation:
