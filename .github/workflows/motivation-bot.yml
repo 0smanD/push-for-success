@@ -2,16 +2,16 @@ name: Daily Motivation Bot
 
 on:
   schedule:
-    - cron: '0 8 * * *'
-  workflow_dispatch: 
+    - cron: '0 8 * * *'  #
+  workflow_dispatch:  #
 
 jobs:
   update-motivation:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest  #
 
     steps:
       - name: Depoyu Klonla
-        uses: actions/checkout@v3  
+        uses: actions/checkout@v3  #
 
       - name: Rastgele Motivasyon Sözü Ekle
         run: |
@@ -24,7 +24,7 @@ jobs:
             "I am the greatest, I said that even before I knew I was."
             "It’s not bragging if you can back it up."
             "To hell with circumstances; I create opportunities."
-            "If you love life, don’t waste time, for time is what life is made of"
+            "If you love life, don’t waste time, for time is what life is made of."
             "I’ve been hit hard, I’ve been knocked down, but I always get back up."
             "Don’t count the days, make the days count."
             "Knowing is not enough, we must apply. Willing is not enough, we must do."
@@ -45,10 +45,10 @@ jobs:
 
       - name: Değişiklikleri Commit ve Push Et
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }} 
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config --global user.name "GitHub Action Bot"
           git config --global user.email "github-actions@github.com"
           git add motivation.txt
           git commit -m "📢 Yeni Motivasyon Sözü: $(date)"
-          git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
+          git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
